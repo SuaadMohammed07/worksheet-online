@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>بطاقات التقنيات الناشئة</title>
+<style>
+*{box-sizing:border-box}body{margin:0;padding:18px;background:linear-gradient(135deg,#e8f5e9 0%,#fce4ec 52%,#e7f3e8 100%);background-attachment:fixed;color:#20313b;font-family:Tahoma,Arial,sans-serif;line-height:1.8}.wrap{max-width:760px;margin:auto}
+.head{background:linear-gradient(115deg,#398b62 0%,#6eaa78 48%,#d9789c 100%);color:white;padding:18px 22px;border-radius:18px;margin:0 auto 18px;max-width:560px;text-align:center}.head h1{font-size:24px;margin:5px 0}.head p{margin:0;font-size:14px}
+.meta{display:flex;justify-content:space-between;color:#5c7079;font-size:14px;margin:12px 2px}.track{height:9px;background:#dce8e8;border-radius:20px;overflow:hidden;margin-bottom:16px}.bar{height:100%;width:0;background:linear-gradient(90deg,#5a9b6d,#d9789c)}
+.panel{background:white;border:1px solid #d7e3e5;border-radius:18px;padding:20px}.badge{display:inline-block;background:#edf7ef;color:#397b58;border-radius:20px;padding:3px 12px;font-size:13px;font-weight:bold}.question{font-size:19px;font-weight:bold;margin:14px 0}.options{display:grid;gap:10px}.opt{width:100%;text-align:right;background:white;border:1.5px solid #d7e3e5;border-radius:12px;padding:12px 14px;min-height:50px;font:inherit;font-size:16px;color:#20313b;cursor:pointer}.opt:disabled{opacity:1}.opt.good{background:#e9f7ed;border-color:#18834b}.opt.bad{background:#fff0f1;border-color:#c43d52}.feedback{display:none;background:#f0f6f7;padding:12px;border-radius:12px;margin-top:14px}.feedback.show{display:block}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}button.action{border:0;border-radius:11px;padding:11px 18px;min-height:45px;font:inherit;font-weight:bold;cursor:pointer}.primary{background:#438b68;color:white}.secondary{background:#e7eff0;color:#173b55}button:disabled{opacity:.45}.result{display:none;text-align:center}.result.show{display:block}.score{font-size:36px;color:#438b68;font-weight:bold}.note{font-size:13px;color:#657780;margin-top:15px}
+#printArea{display:none}
+@media(max-width:480px){body{padding:11px}.head h1{font-size:21px}.panel{padding:16px}.question{font-size:17px}}
+@media print{
+ @page{size:A4;margin:15mm}
+ body{background:white!important;padding:0!important;color:#111!important;font-size:12pt}
+ body.printing #app{display:none!important}
+ body.printing #printArea{display:block!important}
+ #printArea{display:block!important}
+ .print-head{border-bottom:2px solid #087f8c;padding-bottom:10px;margin-bottom:18px}
+ .print-item{break-inside:avoid;border:1px solid #ccc;border-radius:8px;padding:10px 12px;margin:0 0 12px}
+ .print-item h3{font-size:13pt;margin:0 0 7px}
+ .print-item p{margin:4px 0}
+ .print-correct{color:#176b3b;font-weight:bold}
+ .print-chosen{font-weight:bold}
+}
+</style></head>
+<body>
+<main class="wrap" id="app">
+<header class="head"><small>تقنية رقمية | الدرس الثالث</small><h1>بطاقات تفاعلية: التقنيات الناشئة</h1><p>اختاري الإجابة الصحيحة، ثم اقرئي التغذية الراجعة.</p></header>
+<div class="meta"><span id="progress">السؤال 1 من 6</span><span id="score">النتيجة: 0</span></div><div class="track"><div class="bar" id="bar"></div></div>
+<section class="panel" id="quiz"><span class="badge" id="badge">بطاقة 1</span><div class="question" id="question">أي وصف يعبّر عن الواقع الافتراضي (VR)؟</div>
+<div class="options" id="options">
+<button class="opt" type="button">أ ـ بيئة رقمية ثلاثية الأبعاد تحاكي الواقع</button>
+<button class="opt" type="button">ب ـ إضافة عناصر رقمية للمشهد الحقيقي</button>
+<button class="opt" type="button">ج ـ ربط الأجهزة المنزلية بالإنترنت</button>
+<button class="opt" type="button">د ـ تخزين الملفات عبر الإنترنت</button>
+</div><div class="feedback" id="feedback" aria-live="polite"></div>
+<div class="actions"><button class="action primary" id="next" type="button" disabled>السؤال التالي</button><button class="action secondary" id="save" type="button">طباعة الإجابات / حفظ PDF</button></div></section>
+<section class="panel result" id="result" aria-live="polite"><span class="badge">انتهى النشاط</span><h2>أحسنتِ! أنهيتِ البطاقات</h2><div class="score" id="finalScore"></div><p id="message"></p><div class="actions" style="justify-content:center"><button class="action primary" id="restart" type="button">إعادة المحاولة</button><button class="action secondary" id="saveResult" type="button">طباعة النتيجة / حفظ PDF</button></div></section>
+<noscript><p class="note">لتشغيل التصحيح التفاعلي، افتحي الملف في Safari أو Chrome مع تفعيل JavaScript.</p></noscript><p class="note">لحفظ الملف: في نافذة الطباعة على جهاز Mac اختاري من قائمة PDF أسفل النافذة «حفظ كـ PDF».</p>
+</main>
+<section id="printArea" dir="rtl"></section>
+<script>
+(function(){
+const data=[
+{q:"أي وصف يعبّر عن الواقع الافتراضي (VR)؟",a:["بيئة رقمية ثلاثية الأبعاد تحاكي الواقع","إضافة عناصر رقمية للمشهد الحقيقي","ربط الأجهزة المنزلية بالإنترنت","تخزين الملفات عبر الإنترنت"],c:0,f:["الواقع الافتراضي ينشئ بيئة رقمية يتفاعل المستخدم داخلها.","هذا وصف الواقع المعزز الذي يضيف عناصر رقمية إلى البيئة الحقيقية.","هذا وصف إنترنت الأشياء.","هذا وصف الحوسبة السحابية."]},
+{q:"ما التقنية التي تدمج العناصر الرقمية مع البيئة الواقعية لتعزيزها؟",a:["الواقع الافتراضي","الواقع المعزز","الحوسبة السحابية","التقنيات القابلة للارتداء"],c:1,f:["الواقع الافتراضي ينشئ عالماً رقمياً افتراضياً.","الواقع المعزز يضيف عناصر رقمية إلى البيئة الحقيقية.","الحوسبة السحابية توفر موارد تقنية عبر الإنترنت.","التقنيات القابلة للارتداء أجهزة يرتديها المستخدم."]},
+{q:"ما الميزة التي تميز نظارة هولولنز (HoloLens) وفق الدرس؟",a:["تحتاج إلى اتصال سلكي دائم بالحاسب","تعرض عالماً افتراضياً يحجب البيئة الحقيقية","تراكب العناصر الرقمية على العالم الحقيقي والتفاعل معها","تستخدم حصرياً لتخزين الملفات"],c:2,f:["لا يشترط الدرس اتصالاً سلكياً دائماً.","حجب البيئة الحقيقية يرتبط بتجربة الواقع الافتراضي.","تسمح هولولنز بعرض العناصر الرقمية ضمن البيئة الحقيقية والتفاعل معها.","تخزين الملفات من استخدامات الخدمات السحابية."]},
+{q:"أي مما يأتي يُعد من فوائد الحوسبة السحابية؟",a:["منع الوصول إلى البيانات من أجهزة متعددة","حفظ جميع الملفات على جهاز واحد","إلغاء الحاجة إلى الإنترنت في جميع الخدمات","إتاحة الوصول إلى البيانات من أجهزة ومنصات مختلفة"],c:3,f:["الحوسبة السحابية تسهّل الوصول ولا تمنعه.","لا تقتصر على جهاز واحد.","تتطلب الخدمات السحابية عادةً الاتصال بالإنترنت.","تتيح الوصول إلى البيانات من أجهزة ومنصات متعددة."]},
+{q:"أي خيار يمثل خطراً أمنياً من مخاطر الحوسبة السحابية؟",a:["فقدان البيانات أو الوصول غير القانوني إليها","سهولة استعادة البيانات من النسخ الاحتياطية","إمكانية الوصول إلى الملفات من أكثر من جهاز","توفير الموارد حسب الطلب"],c:0,f:["فقدان البيانات والوصول غير القانوني من المخاطر الأمنية.","النسخ الاحتياطي يساعد على استعادة البيانات.","الوصول من أجهزة متعددة من مزايا السحابة.","توفير الموارد حسب الطلب من مزايا الحوسبة السحابية."]},
+{q:"أي مثال يعبّر عن إنترنت الأشياء (IoT)؟",a:["مشاهدة فيلم محفوظ على قرص دون اتصال","ساعة ذكية تجمع بيانات النشاط وترسلها إلى تطبيق متصل","كتابة مستند وحفظه محلياً فقط","ارتداء نظارة شمسية عادية غير متصلة"],c:1,f:["مشاهدة ملف محلي لا تتضمن اتصال أجهزة وتبادل بيانات.","الساعة الذكية المتصلة تجمع البيانات وتتبادلها مع تطبيق أو جهاز آخر.","الحفظ المحلي وحده لا يمثل إنترنت الأشياء.","النظارة العادية غير المتصلة ليست مثالاً على إنترنت الأشياء."]}
+];
+let index=0,points=0,locked=false;const chosen=Array(6).fill(null);const $=id=>document.getElementById(id);
+function render(){locked=false;const item=data[index];$("progress").textContent=`السؤال ${index+1} من 6`;$("score").textContent="النتيجة: "+points;$("bar").style.width=(index/6*100)+"%";$("badge").textContent="بطاقة "+(index+1);$("question").textContent=item.q;$("options").innerHTML="";$("feedback").className="feedback";$("feedback").textContent="";$("next").disabled=true;$("next").textContent=index===5?"عرض النتيجة":"السؤال التالي";item.a.forEach((a,n)=>{const b=document.createElement("button");b.type="button";b.className="opt";b.textContent=["أ","ب","ج","د"][n]+" ـ "+a;b.addEventListener("click",()=>choose(n));$("options").appendChild(b)});$("quiz").style.display="block";$("result").classList.remove("show")}
+function choose(n){if(locked)return;locked=true;chosen[index]=n;const item=data[index];[...$("options").children].forEach((b,j)=>{b.disabled=true;if(j===item.c)b.classList.add("good");else if(j===n)b.classList.add("bad")});if(n===item.c)points++;$("score").textContent="النتيجة: "+points;$("feedback").textContent=(n===item.c?"إجابة صحيحة! ":"راجعي التوضيح: ")+item.f[n];$("feedback").classList.add("show");$("next").disabled=false}
+function showResult(){$("quiz").style.display="none";$("result").classList.add("show");$("bar").style.width="100%";$("progress").textContent="اكتمل النشاط";$("finalScore").textContent=points+" / 6";$("message").textContent=points===6?"ممتاز! أتقنتِ مفاهيم الدرس.":points>=4?"عمل جيد! راجعي التغذية الراجعة لتثبيت المفاهيم.":"راجعي الدرس ثم أعيدي المحاولة."}
+function printSummary(){const labels=["أ","ب","ج","د"];let out='<div class="print-head"><h1>نتيجة نشاط: التقنيات الناشئة</h1><p>الدرجة: '+points+' من 6</p><p>ملخص إجابات الطالبة والتصحيح</p></div>';data.forEach((d,i)=>{const pick=chosen[i];out+='<article class="print-item"><h3>'+(i+1)+'. '+d.q+'</h3><p class="print-chosen">إجابتك: '+(pick===null?'لم تتم الإجابة':labels[pick]+' ـ '+d.a[pick])+'</p><p class="print-correct">الإجابة الصحيحة: '+labels[d.c]+' ـ '+d.a[d.c]+'</p><p>'+ (pick===null?'':d.f[pick])+'</p></article>'});$("printArea").innerHTML=out;document.body.classList.add("printing");window.print()}
+window.addEventListener("afterprint",()=>document.body.classList.remove("printing"));
+$("next").addEventListener("click",()=>{if(!locked)return;if(index<5){index++;render()}else showResult()});
+$("restart").addEventListener("click",()=>{index=0;points=0;chosen.fill(null);$("result").classList.remove("show");render()});
+$("save").addEventListener("click",printSummary);$("saveResult").addEventListener("click",printSummary);render();
+})();
+</script></body></html>
